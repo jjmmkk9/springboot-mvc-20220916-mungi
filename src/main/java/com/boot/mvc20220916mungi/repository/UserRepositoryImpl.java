@@ -9,7 +9,7 @@ import java.util.List;
 
 /*
 @repository =  @Component
-== 이 클래스를 IOC에 등록해라
+=> 이 클래스를 IOC에 등록해라 - 똑같은 인터페이스 implements하는 클래스가 두개이므로 이름도 "a"라고 지어서 등록해라
  */
 @Repository("a")
 public class UserRepositoryImpl implements UserRepository{
@@ -17,7 +17,7 @@ public class UserRepositoryImpl implements UserRepository{
     private final List<User> userData;
 
 
-    //UserRepositoryImpl가 생성 될때 user가 반복으로 만들어진다.
+    //UserRepositoryImpl가 생성 될때 user가 5개 만들어진다.
     public UserRepositoryImpl(){
         userData = new ArrayList<User>();
 
@@ -30,11 +30,12 @@ public class UserRepositoryImpl implements UserRepository{
                     .user_name("조문" + index)
                     .user_email("q" + index + "@gmail.com")
                     .build();
-            userData.add(user);
+            userData.add(user); //조문1~조문5까지 list에 차곡차곡
         }
     }
 
-    public int save(User user) {
+
+    public int save(User user) {//1을 리턴하고 userData에 새로운 유저를 새로운 코드로 등록
         try {
             int maxCode = 0;
             for (User u : userData) {
@@ -42,8 +43,8 @@ public class UserRepositoryImpl implements UserRepository{
                     maxCode = u.getUser_code();
                 }
             }
-            maxCode++;
-            user.setUser_code(maxCode);
+            maxCode++;          
+            user.setUser_code(maxCode); //여기서 maxCode는 6이 되면서 방금 받은 user객체의 User_code가 6이 됨
 
             userData.add(user);
         } catch (Exception e) {

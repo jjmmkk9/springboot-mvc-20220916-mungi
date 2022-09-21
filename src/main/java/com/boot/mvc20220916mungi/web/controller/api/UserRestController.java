@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j //log찍는거
-@RestController //response body 안달아도 되는거?
+@RestController
 @RequestMapping("/api/v1")
 public class UserRestController {
 
@@ -19,12 +19,11 @@ public class UserRestController {
     @Qualifier("a")
     private UserRepository userRepository;
 
-    //pathVariable로 가져온 것
+    //PathVariable로 가져온 것
     @GetMapping("/users/{userCode}")
     public ResponseEntity<?> getUser(@PathVariable int userCode){
                                     //@PathVariable => 경로에 변수를 쓰겠다
         User user = userRepository.findUserByUserCode(userCode);
-
         return ResponseEntity.ok().body(user);
     }
     //param으로 가져온 것
@@ -33,6 +32,7 @@ public class UserRestController {
         User user = userRepository.findUserByUserId(userId);
         return ResponseEntity.ok().body(user);
     }
+
 
     @PostMapping("/user")
     public ResponseEntity<?> addUser(UserAddReqDto userAddReqDto){

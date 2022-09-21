@@ -7,17 +7,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.time.LocalDateTime;
 
 /*
-@Controller의 원래 형태는 @Component 였다.
-기존에(Di) 우리는 생성된 객체를 변수에 넣어줬다. 그러나 IOC 는 제어의 역전 이라는 뜻으로 메소드나
-객체의 호출 작업을 개발자가 결정하는 것이 아니라, 외부에서 결정되는 것을 의미한다.
-객체의 의존성을 역전시켜 객체 간의 결합도를 줄이고 유연한 코드를 작성 할 수 있게 하여 가독성 및 코드 중복
-유지보수를 편하게 한다.
-
+Model 사용해서 html에서 변수처럼 사용할 수 있게 하기
+model.addAttribute(attributeName: "name", attributeValue: "조문기")
+return에 있는 문자열과 동일한 파일명을 가진 html에 thhymeleaf해주기 -> templates - html들에서 확인하자!
  */
 @Controller
 public class PageController {
 
     /*
+    &문제
     index연결하기
     controller는 어노테이션으로 표시해주기
     getMapping은 받는 mapping주소가 들어오면 메소드실행시키는 아이
@@ -35,11 +33,12 @@ public class PageController {
         return "hello";
 }
 
-/*
-myInfo.html이랑 연결하는 메소드
-Model이용해서 addAttribute로 html에서 value 넘겨받을수 있게 해줌~
-html에서 thhymeleaf 설정해주기~~
- */
+    /*
+    &문제
+    myInfo.html이랑 연결하는 메소드 만들기
+    Model이용해서 addAttribute로 html에서 value 넘겨받을수 있게 해줌~
+    html에서 thhymeleaf 설정해주기~~
+     */
 @GetMapping("/myinfo")
     public String loadInfo(Model model) {
     model.addAttribute("name","조문기");

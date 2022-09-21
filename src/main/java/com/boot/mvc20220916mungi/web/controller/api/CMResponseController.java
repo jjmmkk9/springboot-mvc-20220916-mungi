@@ -14,20 +14,23 @@ import java.util.List;
 프론트엔드한테 데이터 공유할 때 쓰는 것!!
  */
 @RestController
-public class CMResponseConntroller {
+public class CMResponseController {
 
     @GetMapping("/api/v1/cm/data1")
     public CMRespDto<?> getData(){
+
         return new CMRespDto<String>(1, "데이터응답 성공", "테스트 데이터");
     }
     @GetMapping("/api/v1/cm/data2")
     public CMRespDto<?> getData2(){
+
         return new CMRespDto<Boolean>(-1, "데이터응답 실패", false);
     }
 
     @GetMapping("/api/v1/cm/data3")
     public CMRespDto<?> getData3(){
         List<StudentRespDto> dtoList = new ArrayList<StudentRespDto>();
+        //학생 코드만 4개 생성
         dtoList.add(StudentRespDto.builder().studentCode("1").build());
         dtoList.add(StudentRespDto.builder().studentCode("2").build());
         dtoList.add(StudentRespDto.builder().studentCode("3").build());

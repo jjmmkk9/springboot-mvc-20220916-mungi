@@ -10,6 +10,11 @@ public class UserAddReqDto {
     private String userName;
     private String userEmail;
 
+    /**
+     * UserAddReqDto로 받은 id, password, name, email을 
+     * user객체 build한 메소드
+     * @return user
+     */
     public User toEntity() {
         return User.builder()
                 .user_id(userId)
