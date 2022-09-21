@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+    <script>
+        alert("ajax1.html 파일 실행");
+
+
+        load();
+        //왜 request를 load에 넣어서 굳이 load()를 해주느냐 ? load는 페이지가 띄워지는 의미 띄워지면 요청날려라 라는 의미
+        // window.onload = () =>{ request();} 이렇게 해두됨
+        function load(){
+            request();
+        }
+        //djax통신 메소드를 load에서 호출
+        function request(){
+            $.ajax({
+                async: false,
+                type: "post",
+                url: "/api/v1/rp/post",
+                data: {
+                    "title": "request param 제목",
+                    "writer": "조문기",
+                    "content": "내용을 입력합니다."
+                },
+                dataType: "json",
+                success: (response) => {
+                    console.log(response);
+                    appendData(response);
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+            });
+
+        }
+        function appendData(response){
+            const body = document.querySelector("body");
+            body.innerHTML = `
+                    <h2>코드: ${response.code}</h2>
+                    <h2>msg: ${response.msg}</h2>
+                    <h2>title: ${response.data.title}</h2>
+                    <h2>writer: ${response.data.writer}</h2>
+                    <h2>content: ${response.data.content}</h2>
+                    `;
+        }
+
+    </script>
+</body>
+</html>

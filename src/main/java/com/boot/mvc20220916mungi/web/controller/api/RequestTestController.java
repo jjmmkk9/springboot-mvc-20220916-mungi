@@ -5,12 +5,13 @@ import com.boot.mvc20220916mungi.web.dto.CMRespDto;
 import lombok.Data;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /*
@@ -64,5 +65,38 @@ public class RequestTestController {
     public ResponseEntity<?> addPost(AddPostReqDto addPostReqDto){
         log.info("{}", addPostReqDto);
         return ResponseEntity.ok(new CMRespDto<>(1,"게시글 작성 완료", addPostReqDto));
+    }
+
+    //파일로 보내기
+    @PostMapping("api/v1/file/post")
+    public ResponseEntity<?> addPost2(AddPostReqDto addPostReqDto){
+        log.info("{}", addPostReqDto);
+        List<String > fileNames = new ArrayList<>();
+        String fileName1 = addPostReqDto.getFile().getOriginalFilename();
+        fileNames.add(fileName1);
+        if(addPostReqDto.getFiles() != null) {
+            String fileName2 = addPostReqDto.getFiles().get(0).getOriginalFilename(); //리스트라서 index로 들고와서 파일이름을 들고온다.
+            String fileName3 = addPostReqDto.getFiles().get(1).getOriginalFilename();
+        }
+
+
+        return ResponseEntity.ok(new CMRespDto<>(1,"게시글 작성 완료", fileNames));
+    }
+
+    @PostMapping("api/v1/json/post") //요청시 들어오는 body 달아줘야 json으로 받을수 있다. json만! requestbody붙인다.
+    public ResponseEntity<?> addPost3(@RequestBody AddPostReqDto addPostReqDto){
+        log.info("{}", addPostReqDto);
+        return ResponseEntity.ok(new CMRespDto<>(1,"Json으로 게시글 작성 완료", addPostReqDto));
+    }
+
+    // /api/v1/post/1(번 게시글 지워라) => {
+    //    "code": 1,
+    //    "msg": "삭제성공",
+    //    "data": 1
+    //}
+    @DeleteMapping("/api/v1/post/{id}") //PathVariable은 번호가 많이 쓰임 (페이지번호 등)
+    public ResponseEntity<?> deletePost(@PathVariable int id){
+        log.info("삭제할 게시글 번호: ({})", id);
+        return ResponseEntity.ok(new CMRespDto<>(1,"삭제성공",id));
     }
 }
