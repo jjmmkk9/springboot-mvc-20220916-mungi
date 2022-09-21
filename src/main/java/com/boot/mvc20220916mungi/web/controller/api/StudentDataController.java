@@ -1,6 +1,9 @@
 package com.boot.mvc20220916mungi.web.controller.api;
 
 import com.boot.mvc20220916mungi.web.dto.StudentRespDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,5 +39,15 @@ public class StudentDataController {
         listMap.put("students",studentList);
 
         return listMap;
+    }
+
+    public static void main(String[] args) throws JsonProcessingException {
+        StudentDataController controller = new StudentDataController();
+        Map<String,?> result = controller.getStudents();
+        //object -> Json
+        ObjectMapper objectMapper = new ObjectMapper();
+        String mapJson = objectMapper.writeValueAsString(result);
+
+        System.out.println(mapJson);
     }
 }
