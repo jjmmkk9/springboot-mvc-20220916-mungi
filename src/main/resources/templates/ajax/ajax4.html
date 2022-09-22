@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- ajax 쓰려면 무조건 jquery 있어야된다  -->
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<!--  ajax json으로 보내기  -->
+<body>
+
+    <script>
+        //post객체 하나 생성
+        let post = {
+            title: "json으로 전송하는 제목",
+            writer: "조문기",
+            content: "내용을 전송합니다."
+        }
+
+        window.onload = () =>{
+            load();
+        }
+
+        //load하나 request하나 만들기
+        function load(){
+            request();
+        }
+
+        function request(){
+            $.ajax({
+                async: false,
+                type: "post",
+                url: "/api/v1/json/post",
+                contentType: "application/json", //요청의 컨텐츠 타입
+                data: JSON.stringify(post), //아까 생성한 객체를 json으로 보낸다
+                dataType: "json",
+                success: (response) => {
+                    console.log(response);
+                },
+                error: (error) => {
+                    console.log(error);
+                }
+
+            })
+        }
+    </script>
+</body>
+</html>
