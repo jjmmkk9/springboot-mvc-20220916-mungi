@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class AjaxTestController {
     @GetMapping("/ajax/{id}")
     public String loadAjax1(@PathVariable int id){
-        //ajax폴더 안에 ajax.html이라서
+        //ajax폴더 안에 ajax(1,2,3).html을 찾아감 
         return "ajax/ajax" + id;
     }
 }

@@ -7,8 +7,8 @@
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
-<!-- form으로 request 보내기 -->
-    <form enctype="multipart/form-data">                            <!-- 이미지만 등록되게 하는거 -->
+    <!-- 폼으로 request 보내기 -->
+    <form enctype="multipart/form-data">
         <!-- form데이터에서는 input의 name이 키값이다 -->
         <input type="text" name="formDataText">
         <input type="file" name="file" class="file-upload-input" accept="image/gif, image/png, image/jpeg">
@@ -33,15 +33,16 @@
             const reader = new FileReader();
 
             reader.onload = (e) => {
-                const filePreview = document.querySelector(".file-preview");
+                const filePreview = document.querySelector(".file-preview");//<img>태그
                 filePreview.src = e.target.result; //result값이 src경로
+                console.log(filePreview.src) //경로 확인해보고 싶어서 찍어보기
             }
-            reader.readAsDataURL(fileInput.files[0]); //얘가 이벤트 = e
+            reader.readAsDataURL(fileInput.files[0]);
         }
 
         //form데이터는 안에들어잇는 객체 바로 볼 수 없어서 볼 수 있게 하겠다. for문으로 하나씩
         function getFormData(){
-            const form = document.querySelector("form"); //form은 하나밖에 없으니까 그냥 태그로 들고왔음
+            const form = document.querySelector("form"); //<form>은 하나밖에 없으니까 그냥 태그로 들고왔음
 
             const formData = new FormData(form);
 

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <!-- Jquery -->
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
@@ -16,12 +17,12 @@
         function load(){
             request();
         }
-        //djax통신 메소드를 load에서 호출
+        //djax통신 request 메소드를 load()에서 호출
         function request(){
             $.ajax({
                 async: false,
                 type: "post",
-                url: "/api/v1/rp/post",
+                url: "/api/v1/rp/post",  //RequestTestController
                 data: {
                     "title": "request param 제목",
                     "writer": "조문기",
@@ -37,7 +38,7 @@
                 }
             });
 
-        }
+        }       //appendData = innerHTML로 뿌려보기
         function appendData(response){
             const body = document.querySelector("body");
             body.innerHTML = `
